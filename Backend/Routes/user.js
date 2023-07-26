@@ -3,7 +3,7 @@ const userRouter=express.Router()
 const {UserModel}=require("../userModel/user.model")
 const jwt=require("jsonwebtoken")
 const bcrypt = require('bcrypt');
-
+require("dotenv").config()
 //registration
 userRouter.post("/register",async(req,res)=>{
     const {firstname,lastname,email,password}=req.body
@@ -36,7 +36,7 @@ userRouter.post("/login",async(req,res)=>{
         if(user){
             bcrypt.compare(password,user.password, (err, result) => {
                 if(result){
-                    res.status(200).send({"msg":"Login successfull!","token":jwt.sign({"userID":user._id},"masai")})
+                    res.status(200).send({"msg":"Login successfull!","token":jwt.sign({"userID":user._id},process.env.jwt_token)})
                 } else {
                     res.status(400).send({"msg":"Wrong Credentials"})
                 }
