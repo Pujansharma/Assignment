@@ -48,7 +48,7 @@ userRouter.post("/login",async(req,res)=>{
 })
 
 
-userRouter.get("/get", async(req,res)=>{
+userRouter.get("/alluser", async(req,res)=>{
     let query=req.query;
     try {
         const data= await UserModel.find(query)
